@@ -413,6 +413,9 @@ class Worker:
                     await asyncio.gather(*self.tasks.values())
                     return None
 
+            if not self.allow_pick_jobs:
+                break
+
     async def run_delayed_queue_poller(self) -> None:
         publish_delayed_job = self.pool.register_script(publish_delayed_job_lua)
 
